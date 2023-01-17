@@ -2,10 +2,11 @@
 
 int main()
 {
+    using namespace std;
     while (true)
     {
-        std::cout << "This is a translator, but it does nothing for now..." << std::endl;
-        std::cin.ignore();
+        cout << "This is a translator, but it does nothing for now..." << std::endl;
+        cin.ignore();
     }
 
     return 0;
