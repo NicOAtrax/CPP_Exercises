@@ -1,13 +1,24 @@
 #include <iostream>
+#include <set>
+
+std::set<std::string> make_exit_commands()
+{
+    return {
+        "q",
+        "quit",
+        "e",
+        "exit"};
+}
 
 int main()
 {
     using namespace std;
-    string var = "";
-    while (var != "q" && var != "quit" && var != "e" && var != "exit")
+    const auto exit_commands = make_exit_commands();
+    string command = {};
+    while (exit_commands.count(command) == 0)
     {
         cout << "Enter something : " << std::endl;
-        cin >> var;
+        cin >> command;
     }
 
     return 0;
