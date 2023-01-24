@@ -2,8 +2,11 @@
 #include <set>
 #include <map>
 #include <sstream>
+#include <vector>
+#include <fstream>
 
 using Dictionary = std::map<std::string, std::string>;
+using History = std::vector<std::string>;
 
 std::set<std::string> make_exit_commands()
 {
@@ -14,7 +17,7 @@ std::set<std::string> make_exit_commands()
         "exit"};
 }
 
-void add(std::istream &input, Dictionary &dictionary)
+void add(std::istream &input, Dictionary &dictionary, History &history)
 {
     using namespace std;
     string w1;
@@ -23,6 +26,7 @@ void add(std::istream &input, Dictionary &dictionary)
     input >> w2;
 
     cout << w1 + " => " + dictionary[w1] << endl;
+    history.push_back("add " + w1 + " " + w2);
 }
 
 void translate(std::istream &input, Dictionary &dictionary)
@@ -52,7 +56,19 @@ void print(Dictionary &dictionary)
     }
 }
 
-bool execute_command(std::istream &input, Dictionary &dictionary)
+void save(std::istream &input, History &history)
+{
+    using namespace std;
+    auto fileName = string{};
+    input >> fileName;
+    auto file = ofstream{fileName};
+    for (const auto &command : history)
+    {
+        file << command << "\n";
+    }
+}
+
+bool execute_command(std::istream &input, Dictionary &dictionary, History &history)
 {
     using namespace std;
     const auto exit_commands = make_exit_commands();
@@ -66,7 +82,7 @@ bool execute_command(std::istream &input, Dictionary &dictionary)
 
     if (command == "add")
     {
-        add(input, dictionary);
+        add(input, dictionary, history);
     }
 
     if (command == "translate")
@@ -77,6 +93,10 @@ bool execute_command(std::istream &input, Dictionary &dictionary)
     {
         print(dictionary);
     }
+    if (command == "save")
+    {
+        save(input, history);
+    }
 
     return true;
 }
@@ -85,10 +105,11 @@ int main()
 {
     using namespace std;
     auto dictionary = Dictionary{};
+    auto history = History{};
     while (true)
     {
         cout << "Enter a command : " << endl;
-        if (!execute_command(cin, dictionary))
+        if (!execute_command(cin, dictionary, history))
         {
             break;
         }
