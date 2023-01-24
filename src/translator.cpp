@@ -17,7 +17,7 @@ int main()
     string command = {};
     while (exit_commands.count(command) == 0)
     {
-        cout << "Enter something : " << std::endl;
+        cout << "Enter command : " << std::endl;
         cin >> command;
     }
 
