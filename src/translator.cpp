@@ -1,5 +1,8 @@
 #include <iostream>
 #include <set>
+#include <map>
+
+using Dictionary = std::map<std::string, std::string>;
 
 std::set<std::string> make_exit_commands()
 {
@@ -10,7 +13,27 @@ std::set<std::string> make_exit_commands()
         "exit"};
 }
 
-bool execute_command(std::istream &input)
+void add(std::istream &input, Dictionary &dictionary)
+{
+    using namespace std;
+    string w1;
+    input >> w1;
+    auto &w2 = dictionary[w1];
+    input >> w2;
+
+    cout << w1 + " => " + dictionary[w1] << endl;
+}
+
+void translate(std::istream &input, Dictionary &dictionary)
+{
+    using namespace std;
+    string w1;
+    input >> w1;
+    const auto it = dictionary.find(w1);
+    cout << (it == dictionary.end() ? "???" : it->second) << endl;
+}
+
+bool execute_command(std::istream &input, Dictionary &dictionary)
 {
     using namespace std;
     const auto exit_commands = make_exit_commands();
@@ -24,11 +47,12 @@ bool execute_command(std::istream &input)
 
     if (command == "add")
     {
-        string w1;
-        input >> w1;
-        string w2;
-        input >> w2;
-        cout << w1 + " => " + w2 << endl;
+        add(input, dictionary);
+    }
+
+    if (command == "translate")
+    {
+        translate(input, dictionary);
     }
 
     return true;
@@ -37,10 +61,11 @@ bool execute_command(std::istream &input)
 int main()
 {
     using namespace std;
+    auto dictionary = Dictionary{};
     while (true)
     {
         cout << "Enter command : " << endl;
-        if (!execute_command(cin))
+        if (!execute_command(cin, dictionary))
         {
             break;
         }
