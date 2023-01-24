@@ -7,6 +7,9 @@
 
 using Dictionary = std::map<std::string, std::string>;
 using History = std::vector<std::string>;
+using Context = std::pair<Dictionary, History>;
+using Languages = std::pair<std::string, std::string>;
+using Translator = std::map<Languages, Context>;
 
 std::set<std::string> make_exit_commands()
 {
@@ -68,9 +71,9 @@ void save(std::istream &input, History &history)
     }
 }
 
-bool execute_command(std::istream &input, Dictionary &dictionary, History &history);
+bool execute_command(std::istream &input, Translator &translator, Languages &languages);
 
-void load(std::istream &input, Dictionary &dictionary, History &history)
+void load(std::istream &input, Translator &translator, Languages &languages)
 {
     using namespace std;
     auto fileName = string{};
@@ -78,7 +81,7 @@ void load(std::istream &input, Dictionary &dictionary, History &history)
     auto file = ifstream{fileName};
     while (!file.eof())
     {
-        execute_command(file, dictionary, history);
+        execute_command(file, translator, languages);
     }
 }
 
@@ -108,10 +111,26 @@ void remove(std::istream &input, Dictionary &dictionary, History &history)
     history.push_back("remove " + word);
 }
 
-bool execute_command(std::istream &input, Dictionary &dictionary, History &history)
+void from(std::istream &input, Languages &languages)
+{
+    using namespace std;
+    input >> languages.first;
+}
+
+void to(std::istream &input, Languages &languages)
+{
+    using namespace std;
+    input >> languages.second;
+}
+
+bool execute_command(std::istream &input, Translator &translator, Languages &languages)
 {
     using namespace std;
     const auto exit_commands = make_exit_commands();
+    auto &context = translator[languages];
+    auto &dictionary = context.first;
+    auto &history = context.second;
+
     string command = {};
     input >> command;
 
@@ -139,7 +158,7 @@ bool execute_command(std::istream &input, Dictionary &dictionary, History &histo
     }
     if (command == "load")
     {
-        load(input, dictionary, history);
+        load(input, translator, languages);
     }
     if (command == "clear")
     {
@@ -149,19 +168,29 @@ bool execute_command(std::istream &input, Dictionary &dictionary, History &histo
     {
         remove(input, dictionary, history);
     }
+    if (command == "from")
+    {
+        from(input, languages);
+    }
+    if (command == "to")
+    {
+        to(input, languages);
+    }
 
     return true;
 }
 
-int main()
+int main(int argc, char **argv)
 {
     using namespace std;
+    auto languages = argc == 3 ? Languages{argv[1], argv[2]} : Languages{"fr", "en"};
     auto dictionary = Dictionary{};
     auto history = History{};
+    auto translator = Translator{};
     while (true)
     {
         cout << "Enter a command : " << endl;
-        if (!execute_command(cin, dictionary, history))
+        if (!execute_command(cin, translator, languages))
         {
             break;
         }
