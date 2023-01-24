@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <map>
+#include <sstream>
 
 using Dictionary = std::map<std::string, std::string>;
 
@@ -27,10 +28,19 @@ void add(std::istream &input, Dictionary &dictionary)
 void translate(std::istream &input, Dictionary &dictionary)
 {
     using namespace std;
-    string w1;
-    input >> w1;
-    const auto it = dictionary.find(w1);
-    cout << (it == dictionary.end() ? "???" : it->second) << endl;
+    auto words = stringstream{};
+    auto line = string{};
+    getline(input, line);
+    words << line;
+    while (!words.eof())
+    {
+        string w1;
+        words >> w1;
+        const auto it = dictionary.find(w1);
+        cout << (it == dictionary.end() ? "???" : it->second) << " ";
+    }
+
+    cout << endl;
 }
 
 bool execute_command(std::istream &input, Dictionary &dictionary)
@@ -64,7 +74,7 @@ int main()
     auto dictionary = Dictionary{};
     while (true)
     {
-        cout << "Enter command : " << endl;
+        cout << "Enter a command : " << endl;
         if (!execute_command(cin, dictionary))
         {
             break;
