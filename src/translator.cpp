@@ -82,6 +82,32 @@ void load(std::istream &input, Dictionary &dictionary, History &history)
     }
 }
 
+void clear(Dictionary &dictionary, History &history)
+{
+    dictionary.clear();
+    history.clear();
+}
+
+void remove(std::istream &input, Dictionary &dictionary, History &history)
+{
+    using namespace std;
+    auto word = string{};
+    input >> word;
+    for (auto it = dictionary.begin(); it != dictionary.end();)
+    {
+        if (it->first == word || it->second == word)
+        {
+            cout << it->first + " x " + it->second << endl;
+            it = dictionary.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+    history.push_back("remove " + word);
+}
+
 bool execute_command(std::istream &input, Dictionary &dictionary, History &history)
 {
     using namespace std;
@@ -114,6 +140,14 @@ bool execute_command(std::istream &input, Dictionary &dictionary, History &histo
     if (command == "load")
     {
         load(input, dictionary, history);
+    }
+    if (command == "clear")
+    {
+        clear(dictionary, history);
+    }
+    if (command == "remove")
+    {
+        remove(input, dictionary, history);
     }
 
     return true;
