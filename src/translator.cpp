@@ -43,6 +43,15 @@ void translate(std::istream &input, Dictionary &dictionary)
     cout << endl;
 }
 
+void print(Dictionary &dictionary)
+{
+    using namespace std;
+    for (const auto &pair : dictionary)
+    {
+        cout << pair.first + " => " + pair.second << endl;
+    }
+}
+
 bool execute_command(std::istream &input, Dictionary &dictionary)
 {
     using namespace std;
@@ -63,6 +72,10 @@ bool execute_command(std::istream &input, Dictionary &dictionary)
     if (command == "translate")
     {
         translate(input, dictionary);
+    }
+    if (command == "print")
+    {
+        print(dictionary);
     }
 
     return true;
