@@ -3,10 +3,11 @@
 int main()
 {
     using namespace std;
-    while (true)
+    string var = "";
+    while (var != "q" && var != "quit" && var != "e" && var != "exit")
     {
-        cout << "This is a translator, but it does nothing for now..." << std::endl;
-        cin.ignore();
+        cout << "Enter something : " << std::endl;
+        cin >> var;
     }
 
     return 0;
