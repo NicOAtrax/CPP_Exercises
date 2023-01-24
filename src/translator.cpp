@@ -68,6 +68,20 @@ void save(std::istream &input, History &history)
     }
 }
 
+bool execute_command(std::istream &input, Dictionary &dictionary, History &history);
+
+void load(std::istream &input, Dictionary &dictionary, History &history)
+{
+    using namespace std;
+    auto fileName = string{};
+    input >> fileName;
+    auto file = ifstream{fileName};
+    while (!file.eof())
+    {
+        execute_command(file, dictionary, history);
+    }
+}
+
 bool execute_command(std::istream &input, Dictionary &dictionary, History &history)
 {
     using namespace std;
@@ -96,6 +110,10 @@ bool execute_command(std::istream &input, Dictionary &dictionary, History &histo
     if (command == "save")
     {
         save(input, history);
+    }
+    if (command == "load")
+    {
+        load(input, dictionary, history);
     }
 
     return true;
