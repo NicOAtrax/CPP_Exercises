@@ -184,8 +184,6 @@ int main(int argc, char **argv)
 {
     using namespace std;
     auto languages = argc == 3 ? Languages{argv[1], argv[2]} : Languages{"fr", "en"};
-    auto dictionary = Dictionary{};
-    auto history = History{};
     auto translator = Translator{};
     while (true)
     {
