@@ -23,3 +23,8 @@ public:
         return _money;
     }
 };
+
+std::ostream &operator<<(std::ostream &stream, const Kid &kid)
+{
+    return stream << kid.get_name() << " has " << kid.get_money() << " euros.";
+}
