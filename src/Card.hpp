@@ -61,11 +61,11 @@ public:
 
     void set_name(const std::string name)
     {
-        _name = name;
+        _name = std::move(name);
     }
 
     void set_description(const std::string description)
     {
-        _description = description;
+        _description = std::move(description);
     }
 };
