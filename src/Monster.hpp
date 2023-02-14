@@ -73,4 +73,9 @@ public:
     {
         return _def;
     }
+
+    std::string get_description() const
+    {
+        return "[" + _type + "]\n" + Card::get_description() + "\nATK/" + std::to_string(_atk) + " DEF/" + std::to_string(_def);
+    }
 };
