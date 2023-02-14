@@ -50,9 +50,9 @@ public:
             Attribute attribute,
             std::string type,
             int atk,
-            int def) : Card{id, CardType::Monster},
+            int def) : Card{std::move(id), CardType::Monster},
                        _attribute{attribute},
-                       _type{type},
+                       _type{std::move(type)},
                        _atk{atk},
                        _def{def}
     {

@@ -32,7 +32,7 @@ private:
     std::string _description;
 
 public:
-    Card(std::string id, CardType type) : _id{id},
+    Card(std::string id, CardType type) : _id{std::move(id)},
                                           _type{type},
                                           _name{""},
                                           _description{""}
