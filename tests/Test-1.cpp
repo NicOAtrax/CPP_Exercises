@@ -1,5 +1,4 @@
 #include <Card.hpp>
-
 #include <catch2/catch_test_macros.hpp>
 
 // Compétences travaillées :
