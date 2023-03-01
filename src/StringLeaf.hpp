@@ -15,6 +15,6 @@ public:
         , _data { data }
     {}
 
-    std::string        print() const override { return "\"" + _data + "\""; }
+    std::string        print() const override;
     const std::string& data() const { return _data; }
 };
