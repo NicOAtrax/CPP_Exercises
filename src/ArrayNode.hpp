@@ -16,4 +16,12 @@ public:
     {}
 
     std::string print() const override;
+
+    static std::unique_ptr<ArrayNode> make_ptr(std::vector<NodePtr> data = {});
+
+    size_t child_count() const { return _data.size(); }
+
+    void   push_back(NodePtr node);
+    size_t height() const override;
+    size_t node_count() const override;
 };
