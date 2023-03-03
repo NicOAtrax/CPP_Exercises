@@ -5,6 +5,10 @@
 #include <iostream>
 #include <memory>
 
+class IntLeaf;
+class StringLeaf;
+class ArrayNode;
+class ObjectNode;
 class Node;
 
 using NodePtr = std::unique_ptr<Node>;

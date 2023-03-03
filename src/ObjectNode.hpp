@@ -14,4 +14,6 @@ public:
     {}
 
     std::string print() const override;
+
+    static std::unique_ptr<ObjectNode> make_ptr(std::map<std::string, NodePtr> data = {});
 };

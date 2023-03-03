@@ -17,4 +17,6 @@ public:
 
     std::string        print() const override;
     const std::string& data() const { return _data; }
+
+    static std::unique_ptr<StringLeaf> make_ptr(std::string s);
 };
