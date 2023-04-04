@@ -17,3 +17,20 @@ const Unit* Kitchen::find_unit(const std::string& name)
     }
     return nullptr;
 }
+
+const Ingredient& Kitchen::register_ingredient(Ingredient ingr, Unit unit)
+{
+    auto [it, emplaced] = _ingredients.emplace(std::move(ingr));
+    return *it;
+}
+const Ingredient* Kitchen::find_ingredient(const std::string& name)
+{
+    for (const auto& it : _ingredients)
+    {
+        if (it.name == name)
+        {
+            return &(*it);
+        }
+    }
+    return nullptr;
+}
