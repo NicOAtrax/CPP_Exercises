@@ -19,7 +19,7 @@ void f1(bool b)
     else
     {
         MyClass<false> my_class {};
-        std::cout << my_class.hello() << std::endl:
+        std::cout << my_class.hello() << std::endl;
         // Note that class MyClass<b> has no hello() method;
     }
 }
