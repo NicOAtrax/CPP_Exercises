@@ -24,8 +24,8 @@ void f1(bool b)
     }
 }
 // Q1:
-//  - Does line `f1(true)` compiles ?
-//  - Does line `f1(false)` compiles ?
+//  - Does line `f1(true)` compiles ? Oui
+//  - Does line `f1(false)` compiles ? Non
 
 /* ========================================================================= */
 template <bool b>
@@ -42,8 +42,8 @@ void f2()
 }
 
 // Q2:
-//  - Does line `f2<true>()` compiles ?
-//  - Does line `f2<false>()` compiles ?
+//  - Does line `f2<true>()` compiles ? Oui
+//  - Does line `f2<false>()` compiles ? Oui
 
 /* ========================================================================= */
 template <bool b>
@@ -59,8 +59,8 @@ void f3()
     }
 }
 // Q3:
-//  - Does line `f3<true>()` compiles ?
-//  - Does line `f3<false>()` compiles ?
+//  - Does line `f3<true>()` compiles ? Oui car zappe le else
+//  - Does line `f3<false>()` compiles ? Non
 
 /* ========================================================================= */
 void f4(bool b)
@@ -83,6 +83,8 @@ void f4(bool b)
 
 // Q5: What does `if constexpr` do? What does `constexpr` mean?
 
+// C'est un si au moment de la compilation.
+
 /* ========================================================================= */
 bool f6()
 {
@@ -91,3 +93,5 @@ bool f6()
 
 // Q6: The line `f3<f6()>()` does not compile, why and how should the function be
 // changed so that it does ?
+
+// ça ne compile pas car la méthode hello() n'existe pas.
